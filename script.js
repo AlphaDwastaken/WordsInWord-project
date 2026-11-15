@@ -1,7 +1,37 @@
 //const canvas = document.getElementById("game");
 //const ctx = canvas.getContext("2d");
+
+//guessing
 let currentGuess = "";
 const display = document.getElementById("wordDisplay");
+//sidebar nav
+const toggleBtn = document.getElementById("toggle-btn");
+const sidebar = document.getElementById('sidebar');
+let sidebarOpen = true;
+const mediaQuery = window.matchMedia('(max-width: 800px)');
+
+function toggleSidebar() {
+    sidebarOpen = !sidebarOpen;
+    sidebar.classList.toggle('close');
+    if (sidebarOpen === false) {
+        toggleBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
+    } else {
+        toggleBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+    }
+}
+
+function handleScreenChange(e) {
+    if (e.matches) {
+        if (sidebarOpen === false) {
+            toggleSidebar();
+        }
+        console.log("View change");
+    }
+}
+
+mediaQuery.addEventListener('change',handleScreenChange);
+
+handleScreenChange(mediaQuery);
 
 // Checks if its an actual word from dictionary api using api entries
 async function checkWord(word) {
