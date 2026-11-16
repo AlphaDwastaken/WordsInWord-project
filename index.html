@@ -23,6 +23,10 @@
                     <i class="fa-solid fa-house"></i>
                     <span>Home</span>
                 </a>
+                <a href="bioluminescence.html" class="sub-menu">
+                    <i class="fa-solid fa-arrow-turn-up" style="rotate: 90deg;"></i>
+                    <span>BIOLUMINESCENCE</span>
+                </a>
             </li>
             <li>
                 <a href="upgrades.html">
@@ -42,6 +46,9 @@
     <main>
         <nav id="tabs">
             <ul>
+                <li>
+                    <a href="index.html"><i class="fa-solid fa-house"></i></a>
+                </li>
                 <li class="active"><a href="bioluminescence.html">BIOLUMINESCENCE</a></li>
                 <li><a href="catastrophe.html">CATASTROPHE</a></li>
                 <li><a href="entertainment.html">ENTERTAINMENT</a></li>
@@ -50,26 +57,34 @@
         </nav>
         <section id="content">
             <div id="letters">
-                <button type="button" class="letter-btn" value="B">B</button>
-                <button type="button" class="letter-btn" value="I">I</button>
-                <button type="button" class="letter-btn" value="O">O</button>
-                <button type="button" class="letter-btn" value="L">L</button>
-                <button type="button" class="letter-btn" value="U">U</button>
-                <button type="button" class="letter-btn" value="M">M</button>
-                <button type="button" class="letter-btn" value="I">I</button>
-                <button type="button" class="letter-btn" value="N">N</button>
-                <button type="button" class="letter-btn" value="E">E</button>
-                <button type="button" class="letter-btn" value="S">S</button>
-                <button type="button" class="letter-btn" value="C">C</button>
-                <button type="button" class="letter-btn" value="E">E</button>
-                <button type="button" class="letter-btn" value="N">N</button>
-                <button type="button" class="letter-btn" value="C">C</button>
-                <button type="button" class="letter-btn" value="E">E</button>
+                <button type="button" class="letter-btn" value="B"><span>B</span></button>
+                <button type="button" class="letter-btn" value="I"><span>I</span></button>
+                <button type="button" class="letter-btn" value="O"><span>O</span></button>
+                <button type="button" class="letter-btn" value="L"><span>L</span></button>
+                <button type="button" class="letter-btn" value="U"><span>U</span></button>
+                <button type="button" class="letter-btn" value="M"><span>M</span></button>
+                <button type="button" class="letter-btn" value="I"><span>I</span></button>
+                <button type="button" class="letter-btn" value="N"><span>N</span></button>
+                <button type="button" class="letter-btn" value="E"><span>E</span></button>
+                <button type="button" class="letter-btn" value="S"><span>S</span></button>
+                <button type="button" class="letter-btn" value="C"><span>C</span></button>
+                <button type="button" class="letter-btn" value="E"><span>E</span></button>
+                <button type="button" class="letter-btn" value="N"><span>N</span></button>
+                <button type="button" class="letter-btn" value="C"><span>C</span></button>
+                <button type="button" class="letter-btn" value="E"><span>E</span></button>
             </div>
-            <h1>BIOLUMINESCENCE</h1>
+            <!--<h1>BIOLUMINESCENCE</h1>-->
             <div class="words-box">
-                <p>You have found <span id="wordCount">0</span> words</p>
+                <p class="word-count-wrapper">You have found <span id="wordCount">0</span> words</p>
+                <p class="points-wrapper">You have <span id="pointsCount">0</span> Points</p>
+                <div class="column">
+                    <div>Hello</div>
+                </div>
                 <div id="wordDisplay" class="word-display"></div>
+                <div class="mobile-inputs">
+                    <button type="button" class="input-btns" value="Backspace">Backspace</button>
+                    <button type="button" class="input-btns" value="Enter">Enter</button>
+                </div>
             </div>
         </section>
     </main>

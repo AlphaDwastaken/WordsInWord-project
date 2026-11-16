@@ -4,6 +4,7 @@
 }
 
 :root {
+    --secondary-color: #1D4ED8;
     --sidenav-hover: #FFFFFF;
 }
 
@@ -17,6 +18,7 @@ body {
     background-color: #F8FAFC;
 }
 
+/* Sidebar styling */
 #sidebar {
     box-sizing: border-box;
     height: 100vh;
@@ -57,7 +59,7 @@ ul {
 }
 
 #sidebar ul li.active a {
-    color: #1D4ED8;
+    color: var(--secondary-color);
 }
 
 #sidebar a, #sidebar .logo {
@@ -69,6 +71,12 @@ ul {
     align-items: center;
     gap: 1em;
     white-space: nowrap;
+}
+
+.sub-menu {
+    margin-left: 1.5em;
+    padding: 0 !important; 
+    font-size: 14px;
 }
 
 #sidebar .logo {
@@ -99,51 +107,164 @@ ul {
     background-color: var(--sidenav-hover);
 }
 
+#sidebar p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 1em;
+}
+
+/* Right side content */
 main {
     padding: 0;
-    margin: 0 5px;
+    margin-left: 5px;
     border-left: 1px solid black;
     border-radius: .5em;
 }
 
-.words-box {
-    border: 1px solid black;
-    border-radius: 1em;
-    padding-bottom: 20px;
-    padding-left: 20px;
-}
-
 #tabs {
-    padding: .5em;
-    padding-top: 0;
+    padding-bottom: .5em;
 }
 
 #tabs ul {
     display: grid;
     position: relative;
     grid-auto-flow: column;
-    overflow-x: auto;
+    overflow: auto;
     justify-content: start;
+    background-color: var(--secondary-color);
+    border-top-left-radius: .5em;
 }
 
 #tabs ul li {
     padding: 5px;
 }
 
+#tabs ul li.active {
+    background-color: white;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    a {
+        color: var(--secondary-color);
+    }
+}
+
 #tabs ul li a {
     white-space: nowrap;
     text-decoration: none;
-    border-right: 1.5px solid black;
-
-    padding-right: 10px;
+    padding: 0 10px;
+    color: white;
 }
 
+#tabs ul li button {
+    width: 25px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#content {
+    margin: .5em;
+}
+
+#letters {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: .5em;
+    overflow-x: auto;
+    margin-bottom: .5em;
+}
+
+.letter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 600;
+    border: none;
+    flex-shrink: 0;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 4vw;
+    min-width: 5%;
+    margin: 0 auto;
+}
+
+.letter-btn:hover {
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    background-color: grey;
+}
+
+.words-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 1em;
+    min-height: 80vh;
+    padding: 1em;
+}
+
+.words-box .word-count-wrapper {
+    text-align: right;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    position: absolute;
+    margin: 1em;
+}
+
+.words-box .points-wrapper {
+    text-align: left;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    position: absolute;
+    margin: 1em;
+}
+
+.column {
+    display: flex;
+    flex-flow: column wrap;
+    align-content: flex-start;
+    height: 475px;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.word-display {
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+    margin-top: auto;
+    border-bottom: 1px solid black;
+    width: 50vw;
+}
+
+.mobile-inputs {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.input-btns {
+    padding: 1em;
+    border-radius: .5em;
+}
+
+/* Mobile phone UI */
 @media(max-width: 800px) {
     body {
         grid-template-columns: 1fr;
     }
     main {
-        padding: 2em 1em 60px 1em;
+        border: none;
+    }
+    #content {
+        padding: .5em;
     }
     .words-box {
         border: none;
@@ -181,5 +302,9 @@ main {
         ul li span, ul li:first-child, .dropdown-btn i:last-child {
             display:none;
         }
+    }
+    #content {
+        margin: 0;
+        padding: 0;
     }
 }
