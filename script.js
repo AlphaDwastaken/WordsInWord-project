@@ -4,20 +4,47 @@
 //guessing
 let currentGuess = "";
 const display = document.getElementById("wordDisplay");
+let isRunning = false;
+let currentWord = "BIOLUMINESCENCE"
 //sidebar nav
 const toggleBtn = document.getElementById("toggle-btn");
 const sidebar = document.getElementById('sidebar');
 let sidebarOpen = true;
 const mediaQuery = window.matchMedia('(max-width: 800px)');
 //mobile button accessibility
-const buttons = document.querySelectorAll('.letter-btn');
+const letterBtns = document.querySelectorAll('.letter-btn');
+const inputBtns = document.querySelectorAll('.input-btns');
 
-buttons.forEach((btn) => {
+//USE CLASS
+
+//convert to map function
+
+//compare maps param(original,user inputted word map)
+
+//needs additional Set to record user's valid submited words (also encourages O(1) )
+
+//mobile/physical inputs
+letterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         console.log('User selected', btn.value)
+        currentGuess += btn.value.toUpperCase();
+        display.textContent = currentGuess;
     })
 })
 
+inputBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        console.log('User selected', btn.value)
+        if (btn.value === "Backspace") {
+            currentGuess = currentGuess.slice(0,-1);
+            display.textContent = currentGuess;
+        } else if (btn.value === "Enter") {
+            submitWord();
+        }
+    })
+})
+
+//toggle sidebar
 function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
     sidebar.classList.toggle('close');
@@ -28,6 +55,7 @@ function toggleSidebar() {
     }
 }
 
+//fix sidebar cutting out
 function handleScreenChange(e) {
     if (e.matches) {
         if (sidebarOpen === false) {
@@ -38,7 +66,6 @@ function handleScreenChange(e) {
 }
 
 mediaQuery.addEventListener('change',handleScreenChange);
-
 handleScreenChange(mediaQuery);
 
 // Checks if its an actual word from dictionary api using api entries
@@ -70,25 +97,33 @@ async function checkWord(word) {
 // Check validity and clear display 
 async function submitWord() {
     const word = currentGuess.toLowerCase();
-    if (word.length < 3) {
-        console.log("Too short");
-        currentGuess = "";
-        display.textContent = currentGuess;
-    } else {
-        if (word == "") {
-            console.log("No word given")
+    //handle simultaneous input
+    if (isRunning) return;
+
+    isRunning = true;
+    try {
+        if (word.length < 3) {
+            console.log("Too short");
             currentGuess = "";
             display.textContent = currentGuess;
-        } else if (await checkWord(word) === true) {
-            currentGuess = "";
-            display.textContent = currentGuess;
-            //add word
         } else {
-            console.log("Not a word")
-            currentGuess = "";
-            display.textContent = currentGuess;
+            if (word == "") {
+                console.log("No word given")
+                currentGuess = "";
+                display.textContent = currentGuess;
+            } else if (await checkWord(word) === true) {
+                currentGuess = "";
+                display.textContent = currentGuess;
+                //add word function HERE PLEASE
+            } else {
+                console.log("Not a word")
+                currentGuess = "";
+                display.textContent = currentGuess;
+            }
         }
-    } 
+    } finally {
+        isRunning = false;
+    }
 }
 
 // Live display, delete, and submit guess

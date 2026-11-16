@@ -197,6 +197,10 @@ main {
     background-color: grey;
 }
 
+.input-btns:focus:not(:focus-visible) {
+    outline: none;
+}
+
 .words-box {
     position: relative;
     display: flex;
@@ -229,7 +233,7 @@ main {
     display: flex;
     flex-flow: column wrap;
     align-content: flex-start;
-    height: 475px;
+    height: 65vh;
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -268,10 +272,12 @@ main {
     }
     .words-box {
         border: none;
-        padding: 0;
+        border-top: 1px solid black;
+        border-radius: 0;
+        padding: 1em;
     }
     #sidebar {
-        height: 60px;
+        height: 50px;
         width: 100%;
         border-right: none;
         border-top: 1px solid black;
@@ -306,5 +312,41 @@ main {
     #content {
         margin: 0;
         padding: 0;
+    }
+    .word-display {
+        font-size: 20px;
+        text-align: center;
+        align-self: center;
+        margin-top: auto;
+        border-bottom: 1px solid black;
+        width: 50vw;
+        position: fixed;
+        left: 25vw;
+        bottom: 6em;
+    }
+    .mobile-inputs {
+        bottom: 3em;
+        left: 22vw;
+        text-align: center;
+        align-self: center;
+        margin-top: auto;
+        width: 50vw;
+        position: fixed;
+    }
+    .words-box .word-count-wrapper {
+        text-align: right;
+        bottom: 40px;
+        right: 0;
+        width: 200px;
+        position: fixed;
+        margin: 1em;
+    }
+    .words-box .points-wrapper {
+        text-align: left;
+        bottom: 40px;
+        left: 0;
+        width: 200px;
+        position: fixed;
+        margin: 1em;
     }
 }
