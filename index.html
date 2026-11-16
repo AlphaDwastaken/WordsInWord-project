@@ -40,21 +40,38 @@
     </nav>
     <!-- Right main content-->
     <main>
-        <header>
-            <nav>
-                <ul id="tabs">
-                    <li><a href="bioluminescence.html">BIOLUMINESCENCE</a></li>
-                    <li><a href="catastrophe.html">CATASTROPHE</a></li>
-                    <li><a href="entertainment.html">ENTERTAINMENT</a></li>
-                    <li><button id="addBtn">+</button></li>
-                </ul>
-            </nav>
-        </header>
-        <h1>BIOLUMINESCENCE</h1>
-        <div class="words-box">
-            <p>You have found <span id="wordCount">0</span> words</p>
-            <div id="wordDisplay" class="word-display"></div>
-        </div>
+        <nav id="tabs">
+            <ul>
+                <li class="active"><a href="bioluminescence.html">BIOLUMINESCENCE</a></li>
+                <li><a href="catastrophe.html">CATASTROPHE</a></li>
+                <li><a href="entertainment.html">ENTERTAINMENT</a></li>
+                <li><button id="addBtn">+</button></li>
+            </ul>
+        </nav>
+        <section id="content">
+            <div id="letters">
+                <button type="button" class="letter-btn" value="B">B</button>
+                <button type="button" class="letter-btn" value="I">I</button>
+                <button type="button" class="letter-btn" value="O">O</button>
+                <button type="button" class="letter-btn" value="L">L</button>
+                <button type="button" class="letter-btn" value="U">U</button>
+                <button type="button" class="letter-btn" value="M">M</button>
+                <button type="button" class="letter-btn" value="I">I</button>
+                <button type="button" class="letter-btn" value="N">N</button>
+                <button type="button" class="letter-btn" value="E">E</button>
+                <button type="button" class="letter-btn" value="S">S</button>
+                <button type="button" class="letter-btn" value="C">C</button>
+                <button type="button" class="letter-btn" value="E">E</button>
+                <button type="button" class="letter-btn" value="N">N</button>
+                <button type="button" class="letter-btn" value="C">C</button>
+                <button type="button" class="letter-btn" value="E">E</button>
+            </div>
+            <h1>BIOLUMINESCENCE</h1>
+            <div class="words-box">
+                <p>You have found <span id="wordCount">0</span> words</p>
+                <div id="wordDisplay" class="word-display"></div>
+            </div>
+        </section>
     </main>
     <footer></footer>
 </body>

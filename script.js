@@ -9,6 +9,14 @@ const toggleBtn = document.getElementById("toggle-btn");
 const sidebar = document.getElementById('sidebar');
 let sidebarOpen = true;
 const mediaQuery = window.matchMedia('(max-width: 800px)');
+//mobile button accessibility
+const buttons = document.querySelectorAll('.letter-btn');
+
+buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        console.log('User selected', btn.value)
+    })
+})
 
 function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
@@ -36,6 +44,7 @@ handleScreenChange(mediaQuery);
 // Checks if its an actual word from dictionary api using api entries
 async function checkWord(word) {
     const url = `https://freedictionaryapi.com/api/v1/entries/en/${word}`;
+    //exception handling
     try {
         const response = await fetch(url);
         if (response.status === 404) {
@@ -62,20 +71,20 @@ async function checkWord(word) {
 async function submitWord() {
     const word = currentGuess.toLowerCase();
     if (word.length < 3) {
-        alert("Too short");
+        console.log("Too short");
         currentGuess = "";
         display.textContent = currentGuess;
     } else {
-        if (await checkWord(word) === true) {
-            currentGuess = "";
-            display.textContent = currentGuess;
-            //add word
-        } else if (word == "") {
+        if (word == "") {
             console.log("No word given")
             currentGuess = "";
             display.textContent = currentGuess;
+        } else if (await checkWord(word) === true) {
+            currentGuess = "";
+            display.textContent = currentGuess;
+            //add word
         } else {
-            alert("Not a word")
+            console.log("Not a word")
             currentGuess = "";
             display.textContent = currentGuess;
         }

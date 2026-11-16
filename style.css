@@ -24,7 +24,7 @@ body {
     padding: 5px .85em;
     background-color: #F1F5F9;
     border-right: 1px solid black;
-
+    border-radius: .5em;
     position: sticky;
     top: 0;
     align-self: start;
@@ -100,8 +100,10 @@ ul {
 }
 
 main {
-    padding: min(20px, 7%);
-    margin: 20px;
+    padding: 0;
+    margin: 0 5px;
+    border-left: 1px solid black;
+    border-radius: .5em;
 }
 
 .words-box {
@@ -112,11 +114,30 @@ main {
 }
 
 #tabs {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(4, 1fr); 
-    overflow-x: auto;
+    padding: .5em;
+    padding-top: 0;
 }
+
+#tabs ul {
+    display: grid;
+    position: relative;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    justify-content: start;
+}
+
+#tabs ul li {
+    padding: 5px;
+}
+
+#tabs ul li a {
+    white-space: nowrap;
+    text-decoration: none;
+    border-right: 1.5px solid black;
+
+    padding-right: 10px;
+}
+
 @media(max-width: 800px) {
     body {
         grid-template-columns: 1fr;
