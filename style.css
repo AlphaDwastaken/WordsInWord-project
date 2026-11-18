@@ -77,6 +77,14 @@ ul {
     margin-left: 1.5em;
     padding: 0 !important; 
     font-size: 14px;
+    color: #475569 !important;
+}
+
+.active-sub-menu {
+    margin-left: 1.5em;
+    padding: 0 !important; 
+    font-size: 14px;
+    color: var(--secondary-color) !important;
 }
 
 #sidebar .logo {
@@ -229,11 +237,11 @@ main {
     margin: 1em;
 }
 
-.column {
+.word-list {
     display: flex;
     flex-flow: column wrap;
     align-content: flex-start;
-    height: 65vh;
+    height: 59vh;
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -257,6 +265,11 @@ main {
 .input-btns {
     padding: 1em;
     border-radius: .5em;
+}
+
+#alert {
+    text-align: center;
+    align-self: center;
 }
 
 /* Mobile phone UI */

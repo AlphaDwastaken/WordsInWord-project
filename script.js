@@ -68,6 +68,12 @@ const inputBtns = document.querySelectorAll('.input-btns');
 //word box
 const wordList = document.getElementById("wordList");
 
+//that one small add button
+const addBtn = document.getElementById("addBtn");
+addBtn.addEventListener('click', function() {
+    alert('TBA');
+});
+
 //mobile/physical inputs
 letterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -76,7 +82,6 @@ letterBtns.forEach((btn) => {
         display.textContent = currentGuess;
     })
 })
-
 inputBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
         console.log('User selected', btn.value)
@@ -89,6 +94,17 @@ inputBtns.forEach((btn) => {
     })
 })
 
+//function display conditions to html with some delay until disapear
+let timerId;
+async function displayCondition(condition) {
+    clearTimeout(timerId);
+    document.getElementById("alert").textContent = condition;
+    timerId = setTimeout(() => {
+        document.getElementById("alert").textContent = "";
+    }, 2000);
+}
+
+//points and equation
 function givePoints(length_of_word) {
     points = Math.round(10 * (1.85 ** (length_of_word - 3)));
     totalScore += points;
@@ -125,21 +141,21 @@ async function checkWord(word) {
     try {
         const response = await fetch(url);
         if (response.status === 404) {
-            console.log(`"${word}" has no entry`);
+            displayCondition(`"${word}" has no entry`);
             return false;
         }
 
         const data = await response.json();
         const hasEntry = Array.isArray(data.entries) && data.entries.length > 0;
         if (hasEntry) {
-            console.log(`"${word}" has entry`)
+            displayCondition(`"${word}" has entry`)
             return true;
         } else {
-            console.log(`"${word}" has no entry`)
+            displayCondition(`"${word}" has no entry`)
             return false;
         }
     } catch (error) {
-        console.error('Network or API error:', error);
+        displayCondition('Network or API error:', error);
         return false;
     }
 }
@@ -154,18 +170,18 @@ async function submitWord() {
     display.textContent = currentGuess;
 
     if (!word) {
-        console.log("No word given");
+        displayCondition("No word given");
         return;
     }
     
     if (word.length < 3) {
-        console.log("Too short");
+        displayCondition("Too short");
         return;
     }
 
     const letterCheck = currentWord.validateGuess(word);
     if (!letterCheck.valid) {
-        console.log(letterCheck.reason);
+        displayCondition(letterCheck.reason);
         return;
     }
 
