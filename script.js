@@ -1,3 +1,52 @@
+//used class for managing multiple data types, map for obtaining and comparing item and value, and set to record words
+class WordValidator {
+    constructor(targetWord) {
+        this.targetWord = targetWord.toLowerCase();
+        this.targetMap = this.buildMap(this.targetWord);
+        this.usedWords = new Set();
+    }
+
+    //turn string into maps
+    buildMap(word) {
+        const freqMap = new Map();
+        for (const char of word.toLowerCase()) {
+            freqMap.set(char, (freqMap.get(char) || 0) +  1); //operation that gets the string and records the char and its amount of times appeared
+        }
+        return freqMap;
+    }
+
+    // self-explanitory
+    validateGuess(userWord) {
+        const cleanWord = userWord.trim().toLowerCase();
+
+        //check set for used words
+        if (this.usedWords.has(cleanWord)) {
+            return { valid: false, reason: "Word already used"};
+        }
+
+        // build 2nd map and compare
+        const userMap = this.buildMap(cleanWord);
+        for (const [letter, count] of userMap) {
+            //condition: unknown letter
+            if (!this.targetMap.has(letter)) {
+                userMap.clear();
+                return { valid: false, reason: `Letter '${letter}' is not allowed`};
+            }
+            //condition: more letters
+            if (count > this.targetMap.get(letter)) {
+                userMap.clear();
+                return { valid: false, reason: `Too many '${letter}'s`}
+            }
+        }
+        return { valid: true};
+    }
+
+    addValidWord(word) {
+        this.usedWords.add(word.trim().toLowerCase());
+        return this.usedWords;
+    }
+}
+
 //const canvas = document.getElementById("game");
 //const ctx = canvas.getContext("2d");
 
@@ -5,7 +54,9 @@
 let currentGuess = "";
 const display = document.getElementById("wordDisplay");
 let isRunning = false;
-let currentWord = "BIOLUMINESCENCE"
+let totalScore = 0;
+const currentWord = new WordValidator("BIOLUMINESCENCE");
+//another good one is ultraviolet
 //sidebar nav
 const toggleBtn = document.getElementById("toggle-btn");
 const sidebar = document.getElementById('sidebar');
@@ -14,14 +65,8 @@ const mediaQuery = window.matchMedia('(max-width: 800px)');
 //mobile button accessibility
 const letterBtns = document.querySelectorAll('.letter-btn');
 const inputBtns = document.querySelectorAll('.input-btns');
-
-//USE CLASS
-
-//convert to map function
-
-//compare maps param(original,user inputted word map)
-
-//needs additional Set to record user's valid submited words (also encourages O(1) )
+//word box
+const wordList = document.getElementById("wordList");
 
 //mobile/physical inputs
 letterBtns.forEach((btn) => {
@@ -44,6 +89,12 @@ inputBtns.forEach((btn) => {
     })
 })
 
+function givePoints(length_of_word) {
+    points = Math.round(10 * (1.85 ** (length_of_word - 3)));
+    totalScore += points;
+    document.getElementById("scoreCount").textContent = totalScore;
+}
+
 //toggle sidebar
 function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
@@ -61,7 +112,6 @@ function handleScreenChange(e) {
         if (sidebarOpen === false) {
             toggleSidebar();
         }
-        console.log("View change");
     }
 }
 
@@ -94,31 +144,46 @@ async function checkWord(word) {
     }
 }
 
-// Check validity and clear display 
+// Check basic word validity and clear display 
 async function submitWord() {
-    const word = currentGuess.toLowerCase();
+    const word = currentGuess.trim().toLowerCase();
     //handle simultaneous input
     if (isRunning) return;
 
+    currentGuess = "";
+    display.textContent = currentGuess;
+
+    if (!word) {
+        console.log("No word given");
+        return;
+    }
+    
+    if (word.length < 3) {
+        console.log("Too short");
+        return;
+    }
+
+    const letterCheck = currentWord.validateGuess(word);
+    if (!letterCheck.valid) {
+        console.log(letterCheck.reason);
+        return;
+    }
+
     isRunning = true;
+    //checks final validation (with applied rule)
     try {
-        if (word.length < 3) {
-            console.log("Too short");
-            currentGuess = "";
-            display.textContent = currentGuess;
-        } else {
-            if (word == "") {
-                console.log("No word given")
-                currentGuess = "";
-                display.textContent = currentGuess;
-            } else if (await checkWord(word) === true) {
-                currentGuess = "";
-                display.textContent = currentGuess;
-                //add word function HERE PLEASE
-            } else {
-                console.log("Not a word")
-                currentGuess = "";
-                display.textContent = currentGuess;
+        const isRealWord = await checkWord(word);
+        if (isRealWord) {
+            const wordSet = currentWord.addValidWord(word);
+            let wordCounter = 0;
+            wordList.innerHTML = "";
+            document.getElementById("wordCount").textContent = wordCounter;
+            for (const validWord of wordSet) { 
+                const wordDiv = document.createElement("div");
+                wordDiv.textContent = validWord.toUpperCase();
+                wordList.appendChild(wordDiv);
+                document.getElementById("wordCount").textContent = ++wordCounter;
+                givePoints(word.length);
             }
         }
     } finally {
